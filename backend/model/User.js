@@ -11,6 +11,8 @@ const newSchema = new Schema({
         unique: true,
         validate: {
             validator: async function () {
+                if (!this.isModified('username')) return true;
+
                 const username = await User.findOne({username: this.username});
                 if (username) throw new Error(`This username: ${this.username} is already registered`);
             }

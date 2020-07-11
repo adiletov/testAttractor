@@ -27,7 +27,7 @@ export const registerUser = userData => {
 };
 
 export const loginUser = userData => {
-    return async (dispatch) =>{
+    return async (dispatch ) =>{
         try{
             dispatch(changeUserRequest());
             const res = await axiosApi.post('/users/sessions', userData);
@@ -45,11 +45,51 @@ export const loginUser = userData => {
 };
 
 export const logoutUser = () => {
-    return async dispatch => {
-        const res = await axiosApi.delete('/users/sessions');
+    return async (dispatch, getState) => {
+        const token = getState().users.user.token;
+        const config = {headers: {'Authorization': 'Token ' + token}};
+
+        const res = await axiosApi.delete('/users/sessions', config);
         dispatch(changeUserSuccess(null));
         toast.success(res.data.message);
         dispatch(push('/'));
+    }
+};
+
+export const changePassword  = userPassword => {
+  return async (dispatch, getState) => {
+      const token = getState().users.user.token;
+      const config = {headers: {'Authorization': 'Token ' + token}};
+      try {
+          const res = await axiosApi.post('/users/changePassword',  userPassword, config);
+          toast.success(res.data.message);
+          dispatch(changeUserSuccess(res.data.user))
+      }catch (e) {
+          if (e.response && e.response.data){
+              console.log(e.response.data);
+              dispatch(changeUserError(e.response.data))
+          }else{
+              dispatch(changeUserError({global: 'Server error!!!'}))
+          }
+      }
+  }
+};
+
+export const changeProfile = username => {
+    return async (dispatch, getState) => {
+        const token = getState().users.user.token;
+        const config = {headers: {'Authorization': 'Token ' + token}};
+        try {
+            const res = await axiosApi.post('/users/changeProfile',  username, config);
+            toast.success(res.data.message);
+            dispatch(changeUserSuccess(res.data.user))
+        }catch (e) {
+            if (e.response && e.response.data){
+                dispatch(changeUserError(e.response.data))
+            }else{
+                dispatch(changeUserError({global: 'Server error!!!'}))
+            }
+        }
     }
 };
 

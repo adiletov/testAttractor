@@ -2,6 +2,7 @@ import React from 'react';
 import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
+import {NavLink} from "react-router-dom";
 
 const UserMenu = ({logout}) => {
     const [anchorEl, setAnchorEl] = React.useState(null);
@@ -25,7 +26,8 @@ const UserMenu = ({logout}) => {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
             >
-                <MenuItem onClick={handleClose}>Add image</MenuItem>
+                <MenuItem component={NavLink} to={'/profile'}>Profile</MenuItem>
+                <MenuItem component={NavLink} to={'/category/add'}>Add category</MenuItem>
                 <MenuItem onClick={logout}>Logout</MenuItem>
             </Menu>
         </>

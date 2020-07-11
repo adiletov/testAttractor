@@ -14,6 +14,10 @@ const Routers = ({user}) => {
                 <Route exact path={'/login'} component={Register}/>
                 <Route exact path={'/register'} component={Register}/>
                 <ProtectedRoute isAllowed={user} exact path='/' component={GalleryPage}/>
+                <ProtectedRoute isAllowed={user} exact path='/profile' component={GalleryPage}/>
+                <ProtectedRoute isAllowed={user} exact path='/category/:id' component={GalleryPage}/>
+                <ProtectedRoute isAllowed={user} exact path='/categories/:id' component={GalleryPage}/>
+                <ProtectedRoute isAllowed={user} exact path='/images/:id' component={GalleryPage}/>
             </Switch>
         </>
     );

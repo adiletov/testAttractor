@@ -1,6 +1,5 @@
 import React from 'react';
 import './App.css';
-import Header from "./container/Header/Header";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import {ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
@@ -14,7 +13,6 @@ function App() {
         <>
             <ToastContainer autoClose={1000}/>
             <CssBaseline/>
-            <Header/>
             <Routers user={user}/>
         </>
     );

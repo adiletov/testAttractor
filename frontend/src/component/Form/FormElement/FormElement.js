@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {TextField} from "@material-ui/core";
+import FileInput from "../FileInput/FileInput";
 
 const FormElement = (props) => {
     let inputComponent = <TextField
@@ -17,6 +18,14 @@ const FormElement = (props) => {
         type={props.type}
         autoComplete={props.autoComplete}
     />;
+
+    if (props.type === 'file'){
+        inputComponent = <FileInput
+            propertyName={props.propertyName}
+            onChange={props.onChange}
+            value={props.value}
+        />
+    }
 
     return inputComponent
 };
